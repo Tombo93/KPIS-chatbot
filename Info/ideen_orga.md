@@ -8,7 +8,8 @@
 [3] https://www.clearpeaks.com/creating-a-chatbot-based-on-chatgpt-for-interacting-with-databases/
 [4] https://www.inf.uni-hamburg.de/inst/service/mensa.html
 
-
+# Goals
+tbd
 
 
 # Orga
