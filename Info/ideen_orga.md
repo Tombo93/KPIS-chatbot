@@ -20,3 +20,14 @@ Bis 18 Uhr am jeweiligen Tag:
 4. Draft paper: 6.1.2026
 5. Reviews: 13.1.2026
 6. Final paper: 20.1.2026
+
+
+## Technik
+### LLM-Agents/Chatbots
+- langGraph: https://langchain-ai.github.io/langgraph/agents/overview/
+
+### LLM-API
+- openAI API-Key erstellen: https://doku.mein-handwerker-app.de/support/solutions/articles/103000357317-wie-bekomme-ich-den-chatgpt-api-key-openai-api-schl%C3%BCssel-
+
+### LLM integration
+- openAI mit Langchain: https://python.langchain.com/docs/integrations/chat/openai/#responses-api
