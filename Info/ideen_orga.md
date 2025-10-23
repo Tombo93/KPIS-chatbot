@@ -32,3 +32,8 @@ Bis 18 Uhr am jeweiligen Tag:
 
 ### LLM integration
 - openAI mit Langchain: https://python.langchain.com/docs/integrations/chat/openai/#responses-api
+
+### Metrics
+
+#### Prompts
+- https://github.com/huggingface/evaluate?tab=readme-ov-file
