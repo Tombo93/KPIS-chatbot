@@ -1,6 +1,6 @@
 # Key takeaways
 
-- Research question: Wie beeinflusst prompt-engineering die Performance unseres LLM-Agenten?
+- Research question: Wie beeinflussen verschiedene Prompt-Arten die Qualität unseres LLM-Agenten?
 - Metriken dazu:
     - **API vollständigkeit**:
     - % an korrekt erstellten API-calls durch den Agenten (% valid API-calls)
