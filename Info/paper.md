@@ -2,7 +2,36 @@
 
 ## Intro
 
-## Methods
+
+## III. PROMPT CLASSES AND TASK DEFINITION
+Based on the existing literature, this section will describe
+the prompt classes that we chose for the experimental design
+as well es the task definition for the Chatbot.
+
+---
+
+
+## IV. EVALUATION METRICS AND METHOD
+Based on the existing literature, this section will describe
+the the evaluation metrics and methods
+
+---
+
+
+## V. Experimental Design
+This section will describe the technical setup of the chatbot system and the experimental workflow.
+The chatbot will integrate retrieval access to the Presseportal with an LLM interface.
+Each prompt variant will be systematically tested across a consistent set of articles.
+The process will include data selection, prompt injection, output collection, and evaluation.
+
+---
+
+This section will describe the technical setup of the chatbot system and the experimental workflow.
+The chatbot will integrate retrieval access to the Presseportal with an LLM interface.
+Each prompt variant will be systematically tested across a consistent set of articles.
+The process will include data selection, prompt crafting(injection), output collection, and evaluation.
+
+## Data
 
 ### Mediastack
 - Alternative für die Pressestelle API (https://mediastack.com/documentation)
@@ -37,29 +66,3 @@ Generiere mir einen API-Call zum deutschen presseportal für Stories mit dem The
 
 generiere den API-call nun für artikel auf englisch
 > GET https://api.presseportal.de/api/v1/news?query=Sport&language=en&limit=10&sort=date_desc
-
-## III. PROMPT CLASSES AND TASK DEFINITION
-Based on the existing literature, this section will describe
-the prompt classes that we chose for the experimental design
-as well es the task definition for the Chatbot.
----
-
-
-## IV. EVALUATION METRICS AND METHOD
-Based on the existing literature, this section will describe
-the the evaluation metrics and methods
----
-
-
-## V. Experimental Design
-This section will describe the technical setup of the chatbot system and the experimental workflow.
-The chatbot will integrate retrieval access to the Presseportal with an LLM interface.
-Each prompt variant will be systematically tested across a consistent set of articles.
-The process will include data selection, prompt injection, output collection, and evaluation.
-
----
-
-This section will describe the technical setup of the chatbot system and the experimental workflow.
-The chatbot will integrate retrieval access to the Presseportal with an LLM interface.
-Each prompt variant will be systematically tested across a consistent set of articles.
-The process will include data selection, prompt crafting(injection), output collection, and evaluation.
