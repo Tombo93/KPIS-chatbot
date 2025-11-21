@@ -7,3 +7,4 @@ dependencies:
   - python-dotenv
   - pandas
   - langchain
+  - langchain-openai
