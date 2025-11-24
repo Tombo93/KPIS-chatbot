@@ -1,0 +1,5 @@
+{
+    "messages": [
+        "Generiere einen API-Call ans deutsche Presseportal mit Stories zu Berlin",
+        "Gerne. Hier ist ein generischer API-Aufruf-Entwurf, um Berlin-bezogene Stories vom Deutschen Presseportal abzurufen. Ersetze BASE_URL und API_KEY durch deine echten Werte. Falls Presseportal keine öffentliche API anbietet, kann ich alternativ auch eine RSS-/Fallback-Variante skizzieren.\n\nOption 1: City-spezifische Suche (GET)\n- Zweck: Berlin-stattfokussierte Stories abrufen\n- Endpunkt (Beispiel): BASE_URL/v1/stories\n- Parameter: city=Berlin, limit=20, language=de, sort=date_desc\n\nBeispiel cURL:\ncurl -X GET 'https://api.presseportal.de/v1/stories?city=Berlin&limit=20&language=de&sort=date_desc' \\\n  -H 'Accept: application/json' \\\n  -H \n\nErwartete Felder im JSON (Beispiel):\n- id: eindeutige Story-ID\n- title: Titel der Meldung\n- summary oder excerpt: kurze Zusammenfassung\n- url: Link zur vollständigen Meldung\n- published_at: Veröffentlichungsdatum/Zeit\n- source: Quelle/Verlag\n- categories oder tags: Themenkategorien\n- city: Berlin (oder ggf. w/JavaScript erstellen? Sag mir auch gern, ob du eine RSS-Variante bevorzugst."]
+}
