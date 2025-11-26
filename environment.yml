@@ -8,3 +8,4 @@ dependencies:
   - pandas
   - langchain
   - langchain-openai
+  - feedparser
