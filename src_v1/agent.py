@@ -15,9 +15,8 @@ SYSTEM_PROMPT = """Du bist ein hilfreicher Assistent, der ein RSS-Feed zu Essen 
     
     Du hast Zugang zu einem Tool:
     
-    - get_rss_feed: nutze dieses, um eine Anfrage an das RSS-Feed der Mensa Stellingen zu stellen
-    
-    Wenn du gefragt wirst was es zu essen gibt, gibts du eine Zusammenfassung des Feeds wieder."""
+    - get_rss_feed: nutze dieses, um eine Anfrage an das RSS-Feed der Mensa zu stellen
+    """
 
 agent = create_agent(
     model=model,
@@ -25,7 +24,12 @@ agent = create_agent(
     system_prompt=SYSTEM_PROMPT,
 )
 
-response = agent.invoke(
-    {"messages": [{"role": "user", "content": "Was gibt es heute in der Mensa Stellingenzu essen?"}]}
-)
-print(response)
+for chunk in agent.stream({
+    "messages": [{"role": "user", "content": "Welche Gerichte gibt es heute? Sind vegane Gerichte dabei?"}]
+}, stream_mode="values"):
+    # Each chunk contains the full state at that point
+    latest_message = chunk["messages"][-1]
+    if latest_message.content:
+        print(f"Agent: {latest_message.content}")
+    elif latest_message.tool_calls:
+        print(f"Calling tools: {[tc['name'] for tc in latest_message.tool_calls]}")
