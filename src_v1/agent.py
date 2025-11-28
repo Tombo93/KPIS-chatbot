@@ -11,7 +11,7 @@ os.environ["OPENAI_API_KEY"] = os.getenv("API_KEY_OPENAI")
 
 model = ChatOpenAI(model="gpt-5-nano")
 
-SYSTEM_PROMPT = """Du bist ein neutraler Berichterstatter, der ein RSS-Feed zu Essen zusammenfasst. Du hältst dich kurz.
+SYSTEM_PROMPT = """Du bist ein hilfreicher Assistent, der ein RSS-Feed zu Essen zusammenfasst.
     
     Du hast Zugang zu einem Tool:
     

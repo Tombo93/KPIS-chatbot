@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Copilot-style Chat</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="{{ url_for('static', filename='chatbot.css') }}">
+</head>
+
+<body>
+  <div class="app" role="application">
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Sidebar">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div class="title">Copilot-style Chat</div>
+      </div>
+      <div class="nav">
+        <button class="active">New chat</button>
+        <button>History</button>
+        <button>Settings</button>
+      </div>
+    </aside>
+
+    <!-- Topbar -->
+    <header class="topbar" role="banner">
+      <div>
+        <strong>Chat</strong>
+        <span class="model"> • Model: Latest</span>
+      </div>
+      <div>
+        <button id="themeToggle" class="pill" aria-label="Toggle theme">Toggle theme</button>
+      </div>
+    </header>
+
+    <!-- Chat area -->
+    <main class="content" role="main">
+      <section class="chat" id="chat" aria-live="polite">
+        <div class="thread" id="thread">
+          <!-- Initial welcome -->
+          <div class="message ai">
+            <div class="avatar" aria-hidden="true">AI</div>
+            <div class="bubble">
+              <p>Welcome. What do you want to build or figure out today?</p>
+              <div class="meta">
+                <span>Copilot</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Composer -->
+      <footer class="composer" role="contentinfo">
+        <div class="inner">
+          <div class="toolbar">
+            <div class="suggestions" aria-label="Prompt suggestions">
+              <button class="pill" data-suggestion="Draft an email">Draft an email</button>
+              <button class="pill" data-suggestion="Explain this code">Explain this code</button>
+              <button class="pill" data-suggestion="Summarize a document">Summarize a document</button>
+            </div>
+            <div class="tokens">
+              <span class="pill" title="Approximate token usage">Usage: <strong id="usage">0</strong></span>
+            </div>
+          </div>
+
+          <div class="input-row">
+            <textarea id="input" placeholder="Ask anything..." aria-label="Message input"></textarea>
+            <div class="actions">
+              <button id="stopBtn" class="btn secondary" disabled>Stop</button>
+              <button id="sendBtn" class="btn">Send</button>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+</body>
+
+</html>
