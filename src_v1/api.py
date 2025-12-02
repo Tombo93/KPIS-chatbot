@@ -26,3 +26,7 @@ def filter_df_by_row(df, search_string):
 def get_rss_feed(url: str ="https://www.imensa.de/feeds/pois/ham13/speiseplan.rss") -> str:
     """Get RSS-Feed for Mensa Stellingen"""
     return feedparser.parse(url)
+
+def get_weather(url: str = "https://www.wetter.com/wetter_rss/wetter.xml") -> str:
+    """Get RSS-Feed for wetter.com"""
+    return feedparser.parse(url)
