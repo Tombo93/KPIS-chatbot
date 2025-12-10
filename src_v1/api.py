@@ -30,3 +30,18 @@ def get_rss_feed(url: str ="https://www.imensa.de/feeds/pois/ham13/speiseplan.rs
 def get_weather(url: str = "https://www.wetter.com/wetter_rss/wetter.xml") -> str:
     """Get RSS-Feed for wetter.com"""
     return feedparser.parse(url)
+
+
+
+"""@dataclass 
+class Context:
+    """Custom runtime context schema."""
+    user_id: str
+    
+    
+class ResponseFormat:
+    """Response schema for the agent."""
+    # A punny response (always required)
+    punny_response: str
+    # Any interesting information about the weather if available
+    weather_conditions: str | None = None"""
