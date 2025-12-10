@@ -32,10 +32,17 @@ class Agent:
             # Each chunk contains the full state at that point
             latest_message = chunk["messages"][-1]
             if latest_message.content:
-                print(f"Agent: {latest_message.content}")
+                yield f"Agent: {latest_message.content}"
             elif latest_message.tool_calls:
-                print(f"Calling tools: {[tc['name'] for tc in latest_message.tool_calls]}")
+                yield f"Calling tools: {[tc['name'] for tc in latest_message.tool_calls]}"
 
+    def invoke(self, message_content, role="user"):
+        response = self.agent.invoke({"messages": [{"role": role, "content": message_content}]})
+        return self.extract_response(response)
+    
+    def extract_response(self, agent_response):
+        ai_message = agent_response["messages"][-1]
+        return ai_message.content, ai_message.usage_metadata["total_tokens"]
 
 
 if __name__ == "__main__":
