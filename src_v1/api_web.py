@@ -1,6 +1,12 @@
 from flask import Flask, render_template, request, Response #, jsonify
 import time
 import pandas as pd
+import os
+from dotenv import load_dotenv
+
+
+load_dotenv()
+os.environ["OPENAI_API_KEY"] = os.getenv("API_KEY_OPENAI")
 
 
 # Run with: python -m flask --app api_web run
@@ -28,7 +34,10 @@ def chat():
         # Final newline ensures reader completes cleanly
         yield "\n"
 
-    return Response(stream(), mimetype="text/plain")  # plain text with JSON lines
+    def invoke_agent():
+        yield f'{{"delta": "{user_message}", "usage": "placeholder"}}\n'
+
+    return Response(invoke_agent(), mimetype="text/plain")  # plain text with JSON lines
 
 if __name__ == "__main__":
     app.run(debug=True)
