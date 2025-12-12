@@ -3,15 +3,13 @@ from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
 from dataclasses import dataclass
-from langchain.tools import tool#, ToolRuntime
-from langgraph.checkpoint.memory import InMemorySaver
-from langchain.agents.structured_output import ToolStrategy
+from langchain.tools import tool
+
 
 from api import get_rss_feed
 from api import get_weather
 
 
-checkpointer = InMemorySaver()
 
 load_dotenv()
 os.environ["OPENAI_API_KEY"] = os.getenv("API_KEY_OPENAI")
@@ -28,26 +26,10 @@ SYSTEM_PROMPT = """Du bist ein hilfreicher Assistent, der ein RSS-Feed zu Essen 
     """
 
 
-@dataclass 
-class Context:
-    """Custom runtime context schema."""
-    user_id: str
-
-class ResponseFormat:
-    """Response schema for the agent."""
-    # A funny response (always required)
-    funny_response: str
-    # Any interesting information about the weather if available
-    weather_conditions: str | None = None
-
-
 agent = create_agent(
     model=model,
     tools=[get_rss_feed, get_weather], #hier können die zusätzlichen Tools eingefügt werden
-    #context_format=Context,
-    response_format=ToolStrategy(ResponseFormat),
     system_prompt=SYSTEM_PROMPT,
-    checkpointer=checkpointer
 )
 
 # `thread_id` is a unique identifier for a given conversation.
