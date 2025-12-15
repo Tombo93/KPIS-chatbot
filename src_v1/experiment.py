@@ -26,20 +26,27 @@ example_data = {
 }
 # Load Prompts
 example_prompts = {
-    "base-prompt": "Erstelle eine Abfrage auf einem Pandas Dataframe, um die neuesten Nachrichten aus dem Bereich Politik abzurufen.",
-    "conversational": "Ich möchte aktuelle politische Meldungen abrufen. Wie müsste eine Abfrage auf einem Pandas Dataframe aussehen, um genau das zu tun?",
-    "chain-of-thought": "Ziel: Abrufen aktueller politischer Meldungen durch eine Abfrage auf einem Pandas Dataframe.\
-        Kontext: Datenquelle ist ein Pandas Dataframe. Als Filter wird die Kategorie 'Politik' genutzt.\
+    "base-prompt": "Erstelle eine Abfrage auf der Pressportal API, um die neuesten Nachrichten aus dem Bereich Politik abzurufen.",
+    "conversational": "Ich möchte aktuelle politische Meldungen abrufen. Wie müsste eine Abfrage auf der Pressportal API aussehen, um genau das zu tun?",
+    "chain-of-thought": "Ziel: Abrufen aktueller politischer Meldungen durch eine Abfrage auf der Pressportal API.\
+        Kontext: Datenquelle ist die Pressportal API. Als Filter wird die Kategorie 'Politik' genutzt.\
         Nun Schritt für Schritt die Filterbedingungen entwickeln und den finalen Pandas-Ausdruck erzeugen."
 }
-# Prompt Template
-prompt_template = PromptTemplate.from_template("Du bist ein neutraler Berichterstatter. Für Anfragen, die Code beinhalten liefere nur den Code. Du hältst dich kurz. Aufgabe: {query}")
-prompts_list = [prompt_template.format(query=query) for _, query in example_prompts.items()]
+# Prompt Templates
+# for zero & few shot prompts
+standard = PromptTemplate.from_template("Answer the question directly. Do not return any preamble, explanation, or reasoning. Aufgabe: {query}")
+chain_of_though = PromptTemplate.from_template("Think step by step to answer the following question. Return the answer at the end of the response after a separator ####. Aufgabe: {query}")
+chain_of_draft = PromptTemplate.from_template("Think step by step, but only keep a minimum draft for each thinking step, with 5 words at most. Return the answer at the end of the response after a separator ####. Aufgabe: {query}")
+
+zero_shot = [standard.format(query=example_prompts["base-prompt"])]
 
 # Generate Batch call to LLM with different configurations
-responses = model.batch(prompts_list)
+responses = model.batch(zero_shot)
 
 # Store responses
-for response in responses:
-    print(response)
+with open('experiment.csv', 'a') as responses_db:
+    for q, a in zip(zero_shot, responses):
+        responses_db.write(f'zero-shot,"{q}", "{a.content}","{a.response_metadata['token_usage']['total_tokens']}"')
+        print(a.content)
+        print(a.response_metadata['token_usage']['total_tokens'])
 # --------------------------------------- #

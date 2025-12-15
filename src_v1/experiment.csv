@@ -1,0 +1,4 @@
+prompt_type,question,answer,token_usage
+zero-shot,Answer the question directly. Do not return any preamble, explanation, or reasoning. Aufgabe: Erstelle eine Abfrage auf der Pressportal API, um die neuesten Nachrichten aus dem Bereich Politik abzurufen., curl -H "Authorization: Bearer YOUR_API_KEY" "https://api.pressportal.example/v1/articles?section=politik&sort=published_at:desc&limit=20&language=de",1509
+zero-shot,"Answer the question directly. Do not return any preamble, explanation, or reasoning. Aufgabe: Erstelle eine Abfrage auf der Pressportal API, um die neuesten Nachrichten aus dem Bereich Politik abzurufen.", "GET https://api.pressportal.de/v1/news?section=politik&order_by=date_desc&limit=20
+Authorization: Bearer YOUR_API_KEY","1497"

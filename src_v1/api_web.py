@@ -27,4 +27,4 @@ def chat():
     return Response(invoke_agent(), mimetype="text/plain")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
