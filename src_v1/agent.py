@@ -5,6 +5,7 @@ from langchain.agents import create_agent
 
 from api import get_rss_feed
 from api import get_weather
+from experiment_db import insert_entries
 
 
 load_dotenv()
@@ -38,14 +39,21 @@ class Agent:
 
     def invoke(self, message_content, role="user"):
         response = self.agent.invoke({"messages": [{"role": role, "content": message_content}]})
-        return self.extract_response(response)
-    
+        content, token_usage = self.extract_response(response)
+        print(token_usage)
+        self.save_message(message_content, content, token_usage)
+        return content, token_usage
+
     def extract_response(self, agent_response):
         ai_message = agent_response["messages"][-1]
         return ai_message.content, ai_message.usage_metadata["total_tokens"]
 
+    def save_message(self, question, answer, num_tokens):
+        insert_entries(question, answer, num_tokens, table="exp_agent_v1")
+        return 0
+
 
 if __name__ == "__main__":
     a = Agent()
-    a.invoke_stream("Welche Gerichte gibt es heute? Sind vegane Gerichte dabei? Kannst du mir Kleidungsempfehlungen für Hamburg geben?")
+    a.invoke("Welche Gerichte gibt es heute? Sind vegane Gerichte dabei? Kannst du mir Kleidungsempfehlungen für Hamburg geben?")
 

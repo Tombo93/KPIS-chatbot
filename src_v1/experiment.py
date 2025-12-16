@@ -47,6 +47,6 @@ responses = model.batch(zero_shot)
 
 # Store responses
 for q, a in zip(zero_shot, responses):
-    insert_entries("zero-shot", q, a.content, a.response_metadata['token_usage']['total_tokens'])
+    insert_entries(q, a.content, a.response_metadata['token_usage']['total_tokens'], p_type="zero-shot")
 # --------------------------------------- #
 print_entries()
