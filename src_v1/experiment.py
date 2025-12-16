@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
 
+from experiment_db import insert_entries, print_entries
+
 
 ########## Configuration ##########
 load_dotenv()
@@ -44,9 +46,7 @@ zero_shot = [standard.format(query=example_prompts["base-prompt"])]
 responses = model.batch(zero_shot)
 
 # Store responses
-with open('experiment.csv', 'a') as responses_db:
-    for q, a in zip(zero_shot, responses):
-        responses_db.write(f'zero-shot,"{q}", "{a.content}","{a.response_metadata['token_usage']['total_tokens']}"')
-        print(a.content)
-        print(a.response_metadata['token_usage']['total_tokens'])
+for q, a in zip(zero_shot, responses):
+    insert_entries("zero-shot", q, a.content, a.response_metadata['token_usage']['total_tokens'])
 # --------------------------------------- #
+print_entries()
