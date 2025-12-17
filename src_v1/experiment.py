@@ -16,16 +16,7 @@ model = ChatOpenAI(model="gpt-5-nano")
 # ---------------------------------- #
 
 ########## Experiment Definition ##########
-# Load Data
-example_data = {
-    "datum": "03.01.2025",
-    "tag1": "Polizei",
-    "tag2": "Einsatz",
-    "tag3": "öffentliche Ordnung",
-    "bundesland": "Bayern",
-    "titel": "Starkregen führte zu einzelnen Überschwemmungen von Kellern.",
-    "text": "An diesem frostigen Januarmorgen führte die Augsburger Polizei eine Routinekontrolle durch  zumindest dachten alle, es sei Routine. Doch wahrend die Kontrolle fortschritt, bemerkte eine junge Polizistin eine unscheinbare Kiste auf dem Rücksitz eines alten Kombis. Darin fand sie ein kleines, mechanisches Uhrwerk, das ununterbrochen tickte, aber offenbar zu keiner Uhr gehörte."
-}
+
 # Load Prompts
 example_prompts = {
     "base-prompt": "Erstelle eine Abfrage auf der Pressportal API, um die neuesten Nachrichten aus dem Bereich Politik abzurufen.",
@@ -35,12 +26,21 @@ example_prompts = {
         Nun Schritt für Schritt die Filterbedingungen entwickeln und den finalen Pandas-Ausdruck erzeugen."
 }
 # Prompt Templates
-# for zero & few shot prompts
-standard = PromptTemplate.from_template("Answer the question directly. Do not return any preamble, explanation, or reasoning. Aufgabe: {query}")
-chain_of_though = PromptTemplate.from_template("Think step by step to answer the following question. Return the answer at the end of the response after a separator ####. Aufgabe: {query}")
-chain_of_draft = PromptTemplate.from_template("Think step by step, but only keep a minimum draft for each thinking step, with 5 words at most. Return the answer at the end of the response after a separator ####. Aufgabe: {query}")
+# for zero & few shot prompts requesting the Presseportal API
+zero_shot = PromptTemplate.from_template(
+    "{sys_prompt} Answer the question directly. Do not return any preamble, explanation, or reasoning. Question: {query}"
+)
+few_shot = PromptTemplate.from_template(
+    "{sys_prompt} Answer the question directly. Do not return any preamble, explanation, or reasoning. Question: {query}"
+)
+chain_of_though = PromptTemplate.from_template(
+    "{sys_prompt} Think step by step to answer the following question. Return the answer at the end of the response after a separator ####. Question: {query}"
+)
+chain_of_draft = PromptTemplate.from_template(
+    "{sys_prompt} Think step by step, but only keep a minimum draft for each thinking step, with 5 words at most. Return the answer at the end of the response after a separator ####. Question: {query}"
+)
 
-zero_shot = [standard.format(query=example_prompts["base-prompt"])]
+zero_shot = [zero_shot.format(query=example_prompts["base-prompt"], sys_prompt="You are generating an API URL for the Presseportal API.")]
 
 # Generate Batch call to LLM with different configurations
 responses = model.batch(zero_shot)

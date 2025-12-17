@@ -54,6 +54,34 @@ def print_entries(table="exp_v1"):
         print(df)
 
 
+def gen_data_presseportal(init=False):
+    with sqlite3.connect("presseportal_prompts.db") as con:
+        cur = con.cursor()
+        cur.execute("""
+        CREATE TABLE IF NOT EXISTS presseportal_prompts (
+            API_request TEXT,
+            zero_shot TEXT,
+            few_shot TEXT,
+            chain_of_thought TEXT,
+            chain_of_draft TEXT
+        )
+        """)
+        if init:
+            cur.execute("""
+            INSERT INTO presseportal_prompts 
+            (API_request, zero_shot, few_shot, chain_of_thought, chain_of_draft)
+            VALUES (?, ?, ?, ?, ?)
+            """, (
+                "https://api.presseportal.de/api/v2/stories/police/image?api_key=yourapikey&limit=20&lang=de",
+                "Retrieve the latest 20 police stories in german as images.",
+                "Example:\n- https://api.presseportal.de/api/v2/stories/sports/image?api_key=yourapikey\n- https://api.presseportal.de/api/v2/stories/nature&lang=fr\nNow, fetch 20 police stories in in german form images.",
+                "First, set the base-URL and then identify the storytype. Next, set the API key parameter. Then, specify the pagination start at 20. Also, set the language parameter. Finally, output the endpoint.",
+                "1. base-URL 2. storytype 3. API key 4. 20 stories 5. language"
+            ))
+
+        con.commit()
+
+
 if __name__ == "__main__":
     init_db()
     print_entries()
