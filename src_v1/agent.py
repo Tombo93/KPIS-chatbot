@@ -40,7 +40,7 @@ class Agent:
     def invoke(self, message_content, role="user"):
         response = self.agent.invoke({"messages": [{"role": role, "content": message_content}]})
         content, token_usage = self.extract_response(response)
-        print(token_usage)
+        print("Token used: ", token_usage)
         self.save_message(message_content, content, token_usage)
         return content, token_usage
 
