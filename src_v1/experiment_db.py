@@ -5,7 +5,7 @@ import pandas as pd
 def init_db():
     with sqlite3.connect("experiment.db") as con:
         cur = con.cursor()
-        cur.execute(f"""
+        cur.execute("""
             CREATE TABLE IF NOT EXISTS exp_v1 (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 prompt_type TEXT,
@@ -14,7 +14,7 @@ def init_db():
                 token_usage INTEGER
             )
             """)
-        cur.execute(f"""
+        cur.execute("""
             CREATE TABLE IF NOT EXISTS exp_agent_v1 (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 question TEXT,
@@ -52,6 +52,13 @@ def print_entries(table="exp_v1"):
         print(f"Table {table}")
         print("####")
         print(df)
+
+
+def read_db_to_df(db="presseportal_prompts.db", table="presseportal_prompts"):
+    with sqlite3.connect(db) as con:
+        q = f"SELECT * FROM {table};"
+        df = pd.read_sql_query(q, con)
+    return df
 
 
 def gen_data_presseportal(init=False):
