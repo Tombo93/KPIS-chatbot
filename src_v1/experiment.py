@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
 
-from experiment_db import insert_entries, print_entries, read_db_to_df
+from db import insert_entries, print_entries, read_db_to_df
 
 
 def get_prompt_template(prompt_type):

@@ -1,11 +1,17 @@
+import os
+from dotenv import load_dotenv
 from langchain_core.prompts import PromptTemplate
 
-from experiment_db import insert_entries, print_entries, read_db_to_df
+from db import insert_entries, print_entries, read_db_to_df
 from experiment import get_prompt_template
 from agent import Agent
 
 
 if __name__ == "__main__":
+    ########## Secrets ##########
+    load_dotenv()
+    os.environ["OPENAI_API_KEY"] = os.getenv("API_KEY_OPENAI")
+    
     agent = Agent()
     """
     Der Agent bekommt jeden Tag unterschiedliche prompts mit denen er die Inhalte zusammenfassen soll.

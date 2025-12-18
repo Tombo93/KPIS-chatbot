@@ -1,15 +1,21 @@
-import os
-from dotenv import load_dotenv
+import feedparser
+from langchain.tools import tool
 from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
 
-from api import get_rss_feed
-from api import get_weather
-from experiment_db import insert_entries
+from db import insert_entries
 
 
-load_dotenv()
-os.environ["OPENAI_API_KEY"] = os.getenv("API_KEY_OPENAI")
+@tool
+def get_rss_feed(url: str ="https://www.imensa.de/feeds/pois/ham13/speiseplan.rss") -> str:
+    """Get RSS-Feed for Mensa Stellingen"""
+    return feedparser.parse(url)
+
+
+@tool
+def get_weather(url: str = "https://www.wetter.com/wetter_rss/wetter.xml") -> str:
+    """Get RSS-Feed for wetter.com"""
+    return feedparser.parse(url)
 
 
 class Agent:
@@ -55,9 +61,3 @@ class Agent:
     def save_message(self, question, answer, num_tokens):
         insert_entries(question, answer, num_tokens, table="exp_agent_v1")
         return 0
-
-
-if __name__ == "__main__":
-    a = Agent()
-    a.invoke("Welche Gerichte gibt es heute? Sind vegane Gerichte dabei? Kannst du mir Kleidungsempfehlungen für Hamburg geben?")
-
