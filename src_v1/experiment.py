@@ -39,9 +39,9 @@ if __name__ == "__main__":
     model = ChatOpenAI(model="gpt-5-nano")
     prompt_types = [
         # "zero_shot",
-        "few_shot",
-        "chain_of_thought",
-        # "chain_of_draft"
+        # "few_shot",
+        # "chain_of_thought",
+        "chain_of_draft"
         ]    
     df = read_db_to_df()
     api_requests = df['API_request'].tolist()
