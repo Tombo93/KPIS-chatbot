@@ -26,8 +26,8 @@ def get_prompt_template(prompt_type):
             )
 
 
-def format_prompts_with_template(prompts, template):
-    return [template.format(query=prompt, sys_prompt="You are generating an API URL for the Presseportal API.") for prompt in prompts]
+def format_prompts_with_template(prompts, template, sys_prompt):
+    return [template.format(query=prompt, sys_prompt=sys_prompt) for prompt in prompts]
 
 
 if __name__ == "__main__":
@@ -50,7 +50,7 @@ if __name__ == "__main__":
         ########## Format prompts ##########
         prompts = df[prompt_type].tolist()
         template = get_prompt_template(prompt_type)
-        formatted_prompts = format_prompts_with_template(prompts, template)
+        formatted_prompts = format_prompts_with_template(prompts, template, "You are generating an API URL for the Presseportal API.")
         ########## Run Test ##########
         responses = model.batch(formatted_prompts)
         ########## Store responses ##########

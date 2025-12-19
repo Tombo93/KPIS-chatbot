@@ -25,11 +25,18 @@ def init_db():
         con.commit()
 
 
-def alter_table():
+def alter_table_exp_v1():
     with sqlite3.connect("experiment.db") as con:
         cur = con.cursor()
         cur.execute("ALTER TABLE exp_v1 DROP COLUMN CLOUMN")
         cur.execute("ALTER TABLE exp_v1 ADD COLUMN API_request TEXT")
+        con.commit()
+
+
+def alter_table_exp_agent_v1_ADD_COLUMN_prompt_type():
+    with sqlite3.connect("experiment.db") as con:
+        cur = con.cursor()
+        cur.execute("ALTER TABLE exp_agent_v1 ADD COLUMN prompt_type TEXT")
         con.commit()
 
 
@@ -45,10 +52,10 @@ def insert_entries(q, a, token_usage, api_request, p_type="zero-shot", table="ex
                 data = (p_type, q, a, token_usage, api_request)
             case "exp_agent_v1":
                 query = """
-                INSERT INTO exp_agent_v1 (question, answer, token_usage)
-                VALUES(?, ?, ?);
+                INSERT INTO exp_agent_v1 (prompt_type, question, answer, token_usage)
+                VALUES(?, ?, ?, ?);
                 """
-                data = (q, a, token_usage)
+                data = (p_type, q, a, token_usage)
         cur.execute(query, data)
         con.commit()
 
@@ -164,4 +171,3 @@ def gen_data_presseportal():
 if __name__ == "__main__":
     print_entries()
     print_entries(table="exp_agent_v1")
-    gen_data_presseportal()

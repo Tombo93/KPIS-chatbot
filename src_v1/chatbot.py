@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request, Response
 
 from agent import Agent
+from db import insert_entries
 
 
 # Run with: python -m flask --app chatbot run
@@ -21,6 +22,7 @@ def chat():
     agent = Agent()
     def invoke_agent():
         content, total_tokens = agent.invoke(user_message)
+        insert_entries(user_message, content, total_tokens, None, p_type="unknown", table="exp_agent_v1")
         yield f'{{"delta": "{content}", "usage":"{total_tokens}"}}\n'
 
     return Response(invoke_agent(), mimetype="text/plain")
