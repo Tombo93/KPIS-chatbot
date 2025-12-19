@@ -5,6 +5,11 @@ from langchain.agents import create_agent
 
 
 @tool
+def search_internet():
+    pass
+
+
+@tool
 def get_rss_feed(url: str ="https://www.imensa.de/feeds/pois/ham13/speiseplan.rss") -> str:
     """Get RSS-Feed for Mensa Stellingen"""
     return feedparser.parse(url)

@@ -10,3 +10,6 @@ dependencies:
   - langchain-openai
   - feedparser
   - flask
+  - seaborn
+  - matplotlib-base
+  - scipy
