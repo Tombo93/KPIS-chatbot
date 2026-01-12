@@ -4,7 +4,6 @@ from langchain_openai import ChatOpenAI
 from langchain.agents import create_agent
 
 
-@tool
 def search_internet():
     pass
 
@@ -25,7 +24,8 @@ class Agent:
     def __init__(self, model=None, sys_prompt=None):
         if sys_prompt is None:
             sys_prompt = """
-            Du bist ein hilfreicher Assistent, der ein RSS-Feed zu Essen zusammenfasst und mir Empfehlungen zur Klamottenwahl anhand der Wettervorhersage gibt.
+            Du bist ein freundlicher Assistent, der ein RSS-Feed zu Essen zusammenfasst und mir Empfehlungen zur Klamottenwahl anhand der Wettervorhersage gibt.
+            Du fasst dich kurz.
             Du hast Zugang zu zwei Tools:
                 - get_rss_feed: nutze dieses, um eine Anfrage an das RSS-Feed der Mensa zu stellen
                 - get_weather: nutze dieses, um die Wetterdaten von Norddeutschland zusammenzufassen und daraus Kleidungsempfehlungen abzuleiten
