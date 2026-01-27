@@ -1,13 +1,13 @@
 # KPIS-chatbot
-Projektbeschreibung
-- Idee
-- Ziel
+- Evaluating effectiveness of prompt classes
 
 ## How to install
+- install from environment.yml using conda
+- setup .env-file with API-Key
 
-## How to run
+## How to run experiment
+> python experiment_agent.py
 
 ## Requirements
-- Python
-- Provider für ein LLM
+- see environment.yml
 
